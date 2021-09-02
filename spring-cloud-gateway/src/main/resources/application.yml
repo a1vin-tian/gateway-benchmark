@@ -1,0 +1,18 @@
+server:
+  port: ${proxyPort:8080}
+
+## -DproxyPort=8080 -DproxyContext=/api/hello -DbackendService=http://localhost:8888/api/hello
+
+spring:
+  cloud:
+    gateway:
+      routes:
+      - id: hello_route
+        uri: ${backendService:http://localhost:8888/api/hello}
+        predicates:
+        - Path=${proxyContex:/api/hello}
+
+logging:
+  level:
+    io.github.kimmking: ERROR
+    org: ERROR
